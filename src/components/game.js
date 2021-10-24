@@ -102,7 +102,6 @@ class Game extends React.Component {
                     <div className={"history"}>
                         <h2>History</h2>
                     </div>
-                    {/*<Board callback={this.handleMove} player={this.state.currentPlayer}/>*/}
                     <div className={"board"}>
                         <Cell cellID={"cell1"} XO={this.state.cell1}
                               clickOnCell={this.handleMove}/>
