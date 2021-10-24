@@ -2,7 +2,7 @@ import React from "react";
 import './style.css';
 import Cell from "./cell";
 
-const history = [];
+let history = [];
 
 class Game extends React.Component {
     constructor(props) {
@@ -39,7 +39,8 @@ class Game extends React.Component {
         btn.type = "button";
         btn.value = history.length === 1 ? `Go to start` : `Go to move #${history.length - 1}`;
         btn.id = history.length - 1 + '';
-        btn.onclick = this.goToMove(btn.id);
+        // btn.onclick = this.goToMove(btn.id);
+        btn.onclick = () => this.goToMove(btn.id);
         document.querySelector(".history").appendChild(btn);
         console.log(history);
 
@@ -79,10 +80,18 @@ class Game extends React.Component {
     }
 
     goToMove = (move) => {
-        move = move.parseInt;
-
-        // this.state = history[move];
+        move = parseInt(move);
         this.setState(history[move]);
+        let currentStep = history.length;
+        history = history.slice(0, move);
+        this.removeButtons(currentStep - move);
+    }
+
+    removeButtons = (n) => {
+        const history = document.querySelector(".history");
+        for (let i = 1; i <= n; i++) {
+            history.removeChild(history.lastChild)
+        }
     }
 
     render() {
