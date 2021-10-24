@@ -1,7 +1,8 @@
 import React from "react";
-import Board from "./board";
 import './style.css';
 import Cell from "./cell";
+
+const history = [];
 
 class Game extends React.Component {
     constructor(props) {
@@ -20,18 +21,27 @@ class Game extends React.Component {
             cell8: "",
             cell9: ""
         }
+
     }
 
     handleMove = (cell) => {
         if (this.state.winner) return;
         let currentPlayer = this.state.nextPlayer;
-        if (this.state[cell] == "") {
+        if (this.state[cell] === "") {
             this.setState({[cell]: currentPlayer}, this.checkWinner);
             console.log(this.state[cell]);
             // this.checkWinner();
             let nextPlayer = currentPlayer === "X" ? "O" : "X";
             this.setState({nextPlayer: nextPlayer})
         }
+        history.push(this.state);
+        const btn = document.createElement("input");
+        btn.type = "button";
+        btn.value = history.length === 1 ? `Go to start` : `Go to move #${history.length - 1}`;
+        btn.id = history.length - 1 + '';
+        btn.onclick = this.goToMove(btn.id);
+        document.querySelector(".history").appendChild(btn);
+        console.log(history);
 
     }
 
@@ -66,6 +76,13 @@ class Game extends React.Component {
                 return;
 
         }
+    }
+
+    goToMove = (move) => {
+        move = move.parseInt;
+
+        // this.state = history[move];
+        this.setState(history[move]);
     }
 
     render() {
