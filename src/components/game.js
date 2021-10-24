@@ -38,6 +38,7 @@ class Game extends React.Component {
             btn.value = history.length === 1 ? `Go to start` : `Go to move #${history.length - 1}`;
             btn.id = history.length - 1 + '';
             btn.onclick = () => this.goToMove(btn.id);
+            btn.style.margin = "1px 0 1px 0";
             document.querySelector(".history").appendChild(btn);
         }
     }
