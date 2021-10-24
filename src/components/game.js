@@ -29,21 +29,17 @@ class Game extends React.Component {
         let currentPlayer = this.state.nextPlayer;
         if (this.state[cell] === "") {
             this.setState({[cell]: currentPlayer}, this.checkWinner);
-            console.log(this.state[cell]);
-            // this.checkWinner();
+
             let nextPlayer = currentPlayer === "X" ? "O" : "X";
             this.setState({nextPlayer: nextPlayer})
+            history.push(this.state);
+            const btn = document.createElement("input");
+            btn.type = "button";
+            btn.value = history.length === 1 ? `Go to start` : `Go to move #${history.length - 1}`;
+            btn.id = history.length - 1 + '';
+            btn.onclick = () => this.goToMove(btn.id);
+            document.querySelector(".history").appendChild(btn);
         }
-        history.push(this.state);
-        const btn = document.createElement("input");
-        btn.type = "button";
-        btn.value = history.length === 1 ? `Go to start` : `Go to move #${history.length - 1}`;
-        btn.id = history.length - 1 + '';
-        // btn.onclick = this.goToMove(btn.id);
-        btn.onclick = () => this.goToMove(btn.id);
-        document.querySelector(".history").appendChild(btn);
-        console.log(history);
-
     }
 
     checkWinner = () => {
@@ -68,10 +64,12 @@ class Game extends React.Component {
             case "XXX":
                 this.setState({winner: "Player X"});
                 document.querySelector(".nextOrWinner").innerHTML = "Player X Won";
+                document.querySelector(".nextOrWinner").style.color = "red";
                 break;
             case "OOO":
                 this.setState({winner: "Player O"});
                 document.querySelector(".nextOrWinner").innerHTML = "Player O Won";
+                document.querySelector(".nextOrWinner").style.color = "green";
                 break;
             default:
                 return;
@@ -84,6 +82,7 @@ class Game extends React.Component {
         this.setState(history[move]);
         let currentStep = history.length;
         history = history.slice(0, move);
+        document.querySelector(".nextOrWinner").innerHTML = `Next Player: ${this.state.nextPlayer}`;
         this.removeButtons(currentStep - move);
     }
 
