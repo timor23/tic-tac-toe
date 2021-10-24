@@ -1,0 +1,48 @@
+.board {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    margin: auto;
+    width: 600px;
+    height: 600px;
+    border: 30px solid darkred;
+    background-color: darkred;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 30px 30px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    ". . ."
+    ". . ."
+    ". . .";
+}
+
+.cell {
+    background-color: burlywood;
+    font-size: 100px;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.X {
+    color: red;
+}
+
+.O {
+    color: green;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10% 0 10%;
+}
+
+.history {
+    display: flex;
+    flex-direction: column;
+}
